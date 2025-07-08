@@ -1,4 +1,3 @@
-// pages/conditions-utilisation.js
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 
@@ -6,17 +5,18 @@ export default function ConditionsUtilisation() {
   return (
     <>
       <Head>
-        <title>Conditions d'utilisation – Empreinte Plus</title>
-        <meta name="description" content="Conditions d'utilisation du site Empreinte Plus" />
+        <title>Conditions d'utilisation – Surface Terrain</title>
+        <meta name="description" content="Conditions d'utilisation du site Surface Terrain" />
       </Head>
       <Navbar />
 
+      <main className="max-w-3xl mx-auto px-4 py-12 text-white">
         <h1 className="text-3xl font-bold text-green-300 mb-4">Conditions Générales d'Utilisation</h1>
-        <p className="mb-6 text-gray-400">Dernière mise à jour : 16 juin 2025</p>
+        <p className="mb-6 text-gray-400">Dernière mise à jour : 8 juillet 2025</p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-green-300 mb-2">1. Objet</h2>
-          <p>Les présentes conditions régissent l'utilisation du site <strong>Empreinte Plus</strong> accessible à l'adresse <a href="https://empreinteplus.com" className="text-blue-400 underline">https://empreinteplus.com</a>.</p>
+          <p>Les présentes conditions régissent l'utilisation du site <strong>Surface Terrain</strong> accessible à l'adresse <a href="https://surface-terrain.fr" className="text-blue-400 underline">https://surface-terrain.fr</a>.</p>
         </section>
 
         <section className="mb-8">
@@ -41,12 +41,12 @@ export default function ConditionsUtilisation() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-green-300 mb-2">6. Données personnelles</h2>
-          <p>Le site ne collecte pas de données personnelles à l’insu des utilisateurs. Voir notre <a href="/pages/politique-confidentialite" className="text-blue-400 underline">Politique de confidentialité</a>.</p>
+          <p>Le site ne collecte pas de données personnelles à l’insu des utilisateurs. Voir notre <a href="/politique-confidentialite" className="text-blue-400 underline">Politique de confidentialité</a>.</p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-green-300 mb-2">7. Modification des conditions</h2>
-          <p>Empreinte Plus se réserve le droit de modifier les présentes conditions à tout moment. Les utilisateurs sont invités à les consulter régulièrement.</p>
+          <p>Surface Terrain se réserve le droit de modifier les présentes conditions à tout moment. Les utilisateurs sont invités à les consulter régulièrement.</p>
         </section>
 
         <section className="mb-8">
@@ -56,9 +56,9 @@ export default function ConditionsUtilisation() {
 
         <section>
           <h2 className="text-2xl font-semibold text-green-300 mb-2">9. Contact</h2>
-          <p>Pour toute question : <a href="mailto:contact@empreinteplus.com" className="text-blue-400 underline">contact@empreinteplus.com</a></p>
+          <p>Pour toute question : <a href="mailto:contact@surface-terrain.fr" className="text-blue-400 underline">contact@surface-terrain.fr</a></p>
         </section>
-
+      </main>
     </>
   );
 }

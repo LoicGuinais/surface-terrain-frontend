@@ -18,7 +18,7 @@ export default function Navbar() {
         {/* Logo and title */}
         <Link href="/" className="flex items-center gap-2 text-xl font-bold">
           <img src="/logo.png" alt="Logo" className="h-6 w-6 object-contain" />
-          Surface Terrain
+          Surface-Terrain.fr
         </Link>
 
         {/* Desktop navigation */}

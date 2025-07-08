@@ -1,13 +1,9 @@
-// components/Footer.js
 export default function Footer() {
   return (
-  <footer className="pt-10 text-center text-sm text-gray-400 space-y-2 bg-black border-t border-gray-800">
-
-
+    <footer className="pt-10 text-center text-sm text-gray-400 space-y-2 bg-black border-t border-gray-800">
       <p>
         <button
           onClick={() => window.dispatchEvent(new Event('open-cookie-banner'))}
-
           className="underline hover:text-green-400"
         >
           Gérer mes cookies
@@ -22,14 +18,15 @@ export default function Footer() {
         </a>
       </p>
       <p>
-        © 2025 Empreinte Plus · Contact :{' '}
-        <a href="mailto:contact@empreinteplus.com" className="underline hover:text-green-400">
-          contact@empreinteplus.com
+        © 2025 Surface Terrain · Contact :{' '}
+        <a href="mailto:contact@surface-terrain.fr" className="underline hover:text-green-400">
+          contact@surface-terrain.fr
         </a>
       </p>
-      <p>
+      {/* Réactiver si LinkedIn existe */}
+      {/* <p>
         <a
-          href="https://www.linkedin.com/company/empreinteplus/"
+          href="https://www.linkedin.com/company/surface-terrain/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 hover:text-blue-400 transition"
@@ -41,7 +38,7 @@ export default function Footer() {
           />
           Suivez-nous sur LinkedIn
         </a>
-      </p>
+      </p> */}
     </footer>
   )
 }
