@@ -8,30 +8,27 @@ export default function Navbar() {
 
   const links = [
     { href: '/', label: 'Accueil' },
-    { href: '/ressources', label: 'Ressources' },
-    { href: '/chat', label: 'IA' },
-    { href: '/login', label: 'Connexion' },
+    { href: '#fonctionnalites', label: 'Fonctionnalités' },
+    { href: '#contact', label: 'Contact' },
   ]
 
   return (
-<header className="w-full bg-black/60 backdrop-blur backdrop-saturate-150 text-white fixed top-0 left-0 z-50 border-b border-gray-800">
+    <header className="w-full bg-black/60 backdrop-blur backdrop-saturate-150 text-white fixed top-0 left-0 z-50 border-b border-gray-800">
       <div className="w-full max-w-screen-xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
         {/* Logo and title */}
         <Link href="/" className="flex items-center gap-2 text-xl font-bold">
           <img src="/logo.png" alt="Logo" className="h-6 w-6 object-contain" />
-          Empreinte Plus
+          Surface Terrain
         </Link>
 
         {/* Desktop navigation */}
         <nav className="hidden sm:flex gap-6 text-sm font-medium">
-
-
           {links.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               className={`hover:text-green-400 ${
-                router.pathname === href ? 'text-green-400' : ''
+                router.asPath === href ? 'text-green-400' : ''
               }`}
             >
               {label}
@@ -39,7 +36,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile burger button (only visible on small screens) */}
+        {/* Mobile burger button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="sm:hidden text-white focus:outline-none"
