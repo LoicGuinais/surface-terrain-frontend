@@ -1,0 +1,33 @@
+# dependencies
+/node_modules
+
+# production
+/.next
+/out
+
+# Tailwind or PostCSS temp files (if any)
+/tailwind.css
+
+# testing
+/coverage
+
+# system files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode
+*.code-workspace
+
+# environment variables
+.env
+.env.local
+.env.*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+env.local
+/lib/generated/prisma
