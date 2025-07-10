@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export default function Navbar() {
+export default function Navbar({ onLogoClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
 
@@ -15,8 +15,16 @@ export default function Navbar() {
   return (
     <header className="w-full bg-black/60 backdrop-blur backdrop-saturate-150 text-white fixed top-0 left-0 z-50 border-b border-gray-800">
       <div className="w-full max-w-screen-xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
-        {/* Logo and title */}
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+        {/* Logo and title with reset handler */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl font-bold"
+          onClick={(e) => {
+            e.preventDefault()
+            onLogoClick?.()
+            router.push('/')
+          }}
+        >
           <img src="/logo.png" alt="Logo" className="h-6 w-6 object-contain" />
           Surface-Terrain.fr
         </Link>
