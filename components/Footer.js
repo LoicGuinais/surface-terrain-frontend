@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="pt-10 text-center text-sm text-gray-400 space-y-2 bg-black border-t border-gray-800">
+    <footer className="pt-10 pb-6 text-center text-sm text-gray-400 space-y-2 bg-black border-t border-gray-800">
       <p>
         <button
           onClick={() => window.dispatchEvent(new Event('open-cookie-banner'))}
@@ -23,22 +23,21 @@ export default function Footer() {
           contact@surface-terrain.fr
         </a>
       </p>
-      {/* Réactiver si LinkedIn existe */}
-      {/* <p>
+      <p>
         <a
-          href="https://www.linkedin.com/company/surface-terrain/"
+          href="https://github.com/LoicGuinais/surface-terrain-backend"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 hover:text-blue-400 transition"
+          className="inline-flex items-center gap-2 hover:text-gray-100 transition"
         >
           <img
-            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
-            alt="LinkedIn"
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
+            alt="GitHub"
             className="w-4 h-4 invert"
           />
-          Suivez-nous sur LinkedIn
+          Code source sur GitHub
         </a>
-      </p> */}
+      </p>
     </footer>
   )
 }
