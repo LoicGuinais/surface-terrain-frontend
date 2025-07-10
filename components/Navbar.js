@@ -9,7 +9,8 @@ export default function Navbar({ onLogoClick }) {
   const links = [
     { href: '/', label: 'Accueil' },
     { href: '/fonctionnalites', label: 'Fonctionnalités' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
   ]
 
   return (
