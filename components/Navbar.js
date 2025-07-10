@@ -8,7 +8,7 @@ export default function Navbar({ onLogoClick }) {
 
   const links = [
     { href: '/', label: 'Accueil' },
-    { href: '#fonctionnalites', label: 'Fonctionnalités' },
+    { href: '/fonctionnalites', label: 'Fonctionnalités' },
     { href: '#contact', label: 'Contact' },
   ]
 

@@ -6,7 +6,26 @@ import Navbar from '../components/Navbar'
 
 
 
+
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Surface-Terrain.fr",
+    "url": "https://surface-terrain.fr",
+    "description": "Outil en ligne gratuit pour rechercher une parcelle cadastrale par surface et commune, basé sur les données ouvertes du cadastre Etalab.",
+    "applicationCategory": "GeospatialApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Surface-Terrain"
+    }
+  };
   const [codePostal, setCodePostal] = useState('')
   const [minSize, setMinSize] = useState('')
   const [maxSize, setMaxSize] = useState('')
@@ -26,6 +45,9 @@ export default function Home() {
     setLoading(true)
     setResults([])
   
+
+
+
   const cleanedPostalCode = codePostal.trim().padStart(5, '0')
   const minVal = parseInt(minSize) || 0
   const maxVal = parseInt(maxSize) || 1000
@@ -40,14 +62,21 @@ export default function Home() {
   }
   }
 
-
-
   return (
     <>
       <Head>
-        <title>Surface-Terrain.fr — Trouver la surface d’un terrain</title>
-        <meta name="description" content="Trouvez rapidement la surface d’un terrain ou d’une parcelle cadastrale par commune." />
+        <title>Surface-Terrain.fr — Trouver une parcelle cadastrale par surface et commune</title>
+        <meta
+          name="description"
+          content="Recherchez gratuitement une parcelle cadastrale en France en renseignant sa surface et sa commune. Outil libre et sans inscription, basé sur les données du cadastre Etalab."
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </Head>
+
+
 
       <Navbar onLogoClick={handleReset} />
 
