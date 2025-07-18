@@ -110,12 +110,10 @@ export default function Home() {
           </div>
         )}
 
-        {results.length > 0 && (
-          <div className="mt-10 w-full max-w-3xl">
-            <h2 className="text-2xl font-semibold mb-4">Carte des parcelles</h2>
-            <MapParcels parcels={results} />
-          </div>
-        )}
+        <div className="mt-10 w-full max-w-3xl">
+          <h2 className="text-2xl font-semibold mb-4">Carte des parcelles</h2>
+          <MapParcels parcels={results} />
+        </div>
       </div>
     </>
   )

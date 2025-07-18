@@ -1,7 +1,7 @@
-// components/MapParcels.js
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { useEffect } from 'react'
 
 // Custom green Leaflet marker
 const greenIcon = new L.Icon({
@@ -17,15 +17,16 @@ const greenIcon = new L.Icon({
 function RecenterMap({ parcels }) {
   const map = useMap()
 
-  if (parcels.length > 0) {
-    const bounds = parcels
-      .flatMap(f => f.geometry.coordinates[0])
-      .map(([lng, lat]) => [lat, lng])
-
-    if (bounds.length > 0) {
-      map.fitBounds(bounds, { padding: [20, 20] })
+  useEffect(() => {
+    if (parcels.length > 0) {
+      const bounds = parcels
+        .flatMap(f => f.geometry.coordinates[0])
+        .map(([lng, lat]) => [lat, lng])
+      if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [20, 20] })
+      }
     }
-  }
+  }, [parcels, map])
 
   return null
 }
@@ -39,48 +40,58 @@ export default function MapParcels({ parcels }) {
     layer.on('mouseout', () => layer.closePopup())
   }
 
+  const franceCenter = [46.603354, 1.888334] // Default center on France
+
   return (
-    <MapContainer
-      center={[48.86, 2.35]}
-      zoom={15}
-      scrollWheelZoom={true}
-      style={{ height: '500px', width: '100%', borderRadius: '1rem' }}
-    >
-      <TileLayer
-        attribution='&copy; OpenStreetMap contributors'
-        url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
-      />
+    <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
+      {/* Optional overlay message */}
+      {parcels.length === 0 && (
+        <div className="absolute top-4 left-4 z-[1000] bg-white/90 text-black text-sm px-4 py-2 rounded shadow">
+          Aucune parcelle à afficher pour l’instant.
+        </div>
+      )}
 
-      {/* Automatically recenters when parcels change */}
-      <RecenterMap parcels={parcels} />
-
-      {/* Parcelle shapes */}
-      {parcels.map((feature, i) => (
-        <GeoJSON
-          key={`geo-${i}`}
-          data={feature}
-          style={{ color: 'green', weight: 2, fillOpacity: 0.4 }}
-          onEachFeature={onEachFeature}
+      <MapContainer
+        center={franceCenter}
+        zoom={6}
+        scrollWheelZoom={true}
+        style={{ height: '100%', width: '100%' }}
+      >
+        <TileLayer
+          attribution='&copy; OpenStreetMap contributors'
+          url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
         />
-      ))}
 
-      {/* Centroid markers */}
-      {parcels.map((feature, i) => {
-        const props = feature.properties
-        return (
-          <Marker
-            key={`marker-${i}`}
-            position={[props.centroid_lat, props.centroid_lon]}
-            icon={greenIcon}
-          >
-            <Popup>
-              Section {props.section} – {props.numero}
-              <br />
-              Surface : {props.contenance} m²
-            </Popup>
-          </Marker>
-        )
-      })}
-    </MapContainer>
+        <RecenterMap parcels={parcels} />
+
+        {/* Parcelle shapes */}
+        {parcels.map((feature, i) => (
+          <GeoJSON
+            key={`geo-${i}`}
+            data={feature}
+            style={{ color: 'green', weight: 2, fillOpacity: 0.4 }}
+            onEachFeature={onEachFeature}
+          />
+        ))}
+
+        {/* Centroid markers */}
+        {parcels.map((feature, i) => {
+          const props = feature.properties
+          return (
+            <Marker
+              key={`marker-${i}`}
+              position={[props.centroid_lat, props.centroid_lon]}
+              icon={greenIcon}
+            >
+              <Popup>
+                Section {props.section} – {props.numero}
+                <br />
+                Surface : {props.contenance} m²
+              </Popup>
+            </Marker>
+          )
+        })}
+      </MapContainer>
+    </div>
   )
 }
