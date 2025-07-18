@@ -1,17 +1,14 @@
 // components/Layout.js
 import Footer from './Footer'
 import CookieBanner from './CookieBanner'
-import Navbar from './Navbar'
 
-export default function Layout({ children, showFooter = true, showCookies = true, onLogoClick }) {
+export default function Layout({ children, showFooter = true, showCookies = true }) {
   return (
     <>
-      <Navbar onLogoClick={onLogoClick} />
+      <main className="pt-24 scroll-pt-32 min-h-screen bg-surface-base text-text-primary bg-gradient-to-br from-surface-soft via-surface-soft to-surface-base">
 
-      <main className="scroll-pt-32 min-h-screen bg-black text-white bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         {children}
       </main>
-
       {showFooter && <Footer />}
       {showCookies && <CookieBanner />}
     </>

@@ -1,12 +1,8 @@
+// pages/index.js
 import Head from 'next/head'
 import { useState } from 'react'
 import { fetchParcelles } from '../lib/api'
 import dynamic from 'next/dynamic'
-import Navbar from '../components/Navbar'
-
-
-
-
 
 export default function Home() {
   const jsonLd = {
@@ -26,42 +22,36 @@ export default function Home() {
       "@type": "Organization",
       "name": "Surface-Terrain"
     }
-  };
+  }
+
   const [codePostal, setCodePostal] = useState('')
   const [minSize, setMinSize] = useState('')
   const [maxSize, setMaxSize] = useState('')
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
-  const handleReset = () => {
-    setCodePostal('')
-    setMinSize('')
-    setMaxSize('')
-    setResults([])
-    } 
-  const MapParcels = dynamic(() => import('../components/MapParcels'), {
-    ssr: false,
-  })
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setResults([])
-  
 
+    const cleanedPostalCode = codePostal.trim().padStart(5, '0')
+    const minVal = parseInt(minSize) || 0
+    const maxVal = parseInt(maxSize) || 1000
 
-
-  const cleanedPostalCode = codePostal.trim().padStart(5, '0')
-  const minVal = parseInt(minSize) || 0
-  const maxVal = parseInt(maxSize) || 1000
-
-  try {
-    const data = await fetchParcelles(cleanedPostalCode, minVal, maxVal, 10)
-    setResults(data.features || [])
-  } catch (err) {
-    console.error(err)
-  } finally {
-    setLoading(false)
+    try {
+      const data = await fetchParcelles(cleanedPostalCode, minVal, maxVal, 10)
+      setResults(data.features || [])
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
   }
-  }
+
+  const MapParcels = dynamic(() => import('../components/MapParcels'), {
+    ssr: false,
+  })
 
   return (
     <>
@@ -77,14 +67,11 @@ export default function Home() {
         />
       </Head>
 
-
-
-      <Navbar onLogoClick={handleReset} />
-
-      <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 text-center">
+      <div className="flex flex-col items-center justify-center px-4 text-center w-full">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
           Trouvez la surface d’un terrain par commune
         </h1>
+
         <form className="w-full max-w-sm" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -110,31 +97,26 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="bg-white text-black font-semibold px-6 py-3 rounded-xl hover:bg-gray-200 transition"
+            className="bg-text-primary text-surface-base font-semibold px-6 py-3 rounded-xl hover:bg-text-secondary transition"
           >
             Rechercher les parcelles
           </button>
         </form>
-      {loading && (
-        <div className="mt-8 flex items-center gap-2 text-white text-lg">
-          <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          Chargement des données cadastrales...
-        </div>
-      )}
 
-        {results.length > 0 && (
-          <>
-            <div className="mt-10 w-full max-w-3xl">
-              <h2 className="text-2xl font-semibold mb-4">Carte des parcelles</h2>
-              <MapParcels parcels={results} />
-            </div>
-
-          
-          </>
+        {loading && (
+          <div className="mt-8 flex items-center gap-2 text-text-primary text-lg">
+            <div className="h-5 w-5 border-2 border-text-primary border-t-transparent rounded-full animate-spin"></div>
+            Chargement des données cadastrales...
+          </div>
         )}
 
-
-      </main>
+        {results.length > 0 && (
+          <div className="mt-10 w-full max-w-3xl">
+            <h2 className="text-2xl font-semibold mb-4">Carte des parcelles</h2>
+            <MapParcels parcels={results} />
+          </div>
+        )}
+      </div>
     </>
   )
 }

@@ -1,5 +1,5 @@
+// pages/fonctionalite.js
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
 
 export default function Fonctionnalite() {
   const jsonLd = {
@@ -24,15 +24,22 @@ export default function Fonctionnalite() {
         />
       </Head>
 
-      <Navbar />
-
-      <main className="min-h-screen bg-black text-white flex flex-col items-center justify-start px-4 py-16 text-left max-w-3xl mx-auto">
+      <div className="flex flex-col items-center justify-start px-4 py-16 text-left max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 text-center">
           Fonctionnalités de Surface-Terrain.fr
         </h1>
 
         <p className="mb-6">
-          Surface-Terrain.fr est un outil en ligne gratuit qui permet de <strong>trouver une parcelle cadastrale par surface et commune</strong>. Il s’appuie sur les données ouvertes du <a href="https://cadastre.data.gouv.fr/datasets/cadastre-etalab" className="underline text-blue-300" target="_blank" rel="noopener noreferrer">cadastre Etalab</a>, et propose une interface simple, rapide et sans publicité.
+          Surface-Terrain.fr est un outil en ligne gratuit qui permet de <strong>trouver une parcelle cadastrale par surface et commune</strong>. Il s’appuie sur les données ouvertes du{" "}
+          <a
+            href="https://cadastre.data.gouv.fr/datasets/cadastre-etalab"
+            className="underline text-link hover:text-link-hover"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            cadastre Etalab
+          </a>
+          , et propose une interface simple, rapide et sans publicité.
         </p>
 
         <ul className="list-disc list-inside space-y-3 mb-8">
@@ -53,7 +60,7 @@ export default function Fonctionnalite() {
         <p className="text-lg font-medium mt-8">
           ➤ Essayez Surface-Terrain.fr dès maintenant : un outil rapide, fiable et gratuit.
         </p>
-      </main>
+      </div>
     </>
   )
 }

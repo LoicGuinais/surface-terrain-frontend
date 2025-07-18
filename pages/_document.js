@@ -6,7 +6,7 @@ export default function Document() {
     <Html lang="fr">
       <Head>
         {/* ✅ Add favicon here */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
         {/* Optional: support for other formats */}
         {/* <link rel="icon" type="image/png" href="/favicon.png" /> */}
         {/* <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> */}

@@ -14,7 +14,7 @@ export default function Navbar({ onLogoClick }) {
   ]
 
   return (
-    <header className="w-full bg-black/60 backdrop-blur backdrop-saturate-150 text-white fixed top-0 left-0 z-50 border-b border-gray-800">
+    <header className="w-full bg-surface-base/60 backdrop-blur backdrop-saturate-150 text-text-primary fixed top-0 left-0 z-50 border-b border-surface-border">
       <div className="w-full max-w-screen-xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
         {/* Logo and title with reset handler */}
         <Link
@@ -36,8 +36,8 @@ export default function Navbar({ onLogoClick }) {
             <Link
               key={href}
               href={href}
-              className={`hover:text-green-400 ${
-                router.asPath === href ? 'text-green-400' : ''
+              className={`hover:text-brand ${
+                router.asPath === href ? 'text-brand' : ''
               }`}
             >
               {label}
@@ -48,7 +48,7 @@ export default function Navbar({ onLogoClick }) {
         {/* Mobile burger button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden text-white focus:outline-none"
+          className="sm:hidden text-text-primary focus:outline-none"
           aria-label="Ouvrir le menu"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,13 +59,13 @@ export default function Navbar({ onLogoClick }) {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="sm:hidden bg-black px-4 pb-4 border-t border-gray-800">
+        <div className="sm:hidden bg-surface-base px-4 pb-4 border-t border-surface-border">
           <nav className="flex flex-col gap-3 text-sm font-medium">
             {links.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className="hover:text-green-400"
+                className="hover:text-brand"
                 onClick={() => setMenuOpen(false)}
               >
                 {label}

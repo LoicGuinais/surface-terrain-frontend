@@ -46,21 +46,32 @@ export default function CookieBanner() {
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 inset-x-0 bg-gray-900 text-white text-sm px-4 py-3 flex flex-col sm:flex-row items-center justify-between z-50 shadow-lg">
+    <div className="fixed bottom-0 inset-x-0 bg-surface-soft text-text-primary text-sm px-4 py-3 flex flex-col sm:flex-row items-center justify-between z-50 shadow-lg border-t border-surface-border">
       <p className="mb-2 sm:mb-0">
-        🍪 Ce site utilise des cookies à des fins de mesure d’audience (Google Analytics).
+        Ce site utilise des cookies à des fins de mesure d’audience (Google Analytics).
         <a
           href="/politique-confidentialite"
           target="_blank"
-          className="underline ml-1 text-green-400 hover:text-green-300"
+          className="underline ml-1 text-link hover:text-link-hover"
         >
           Politique de confidentialité
         </a>
       </p>
       <div className="flex space-x-2">
-        <button onClick={accept} className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded transition">Ok</button>
-        <button onClick={reject} className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-1 rounded transition">Refuser</button>
+        <button
+          onClick={accept}
+          className="bg-brand hover:bg-brand-dark text-white px-4 py-1 rounded transition"
+        >
+          Ok
+        </button>
+        <button
+          onClick={reject}
+          className="bg-surface-border hover:bg-surface-soft text-text-primary px-4 py-1 rounded transition"
+        >
+          Refuser
+        </button>
       </div>
+
     </div>
   )
 }

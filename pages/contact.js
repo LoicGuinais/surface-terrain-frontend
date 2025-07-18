@@ -1,5 +1,5 @@
+// pages/contact.js
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
 
 export default function Contact() {
   const jsonLd = {
@@ -24,9 +24,7 @@ export default function Contact() {
         />
       </Head>
 
-      <Navbar />
-
-      <main className="min-h-screen bg-black text-white flex flex-col items-center justify-start px-4 py-16 text-left max-w-2xl mx-auto">
+      <div className="flex flex-col items-center justify-start px-4 py-16 text-left max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 text-center">Contactez-nous</h1>
 
         <p className="mb-6">
@@ -35,18 +33,21 @@ export default function Contact() {
 
         <ul className="mb-8 space-y-4">
           <li>
-            📧 <strong>Email :</strong>{' '}
-            <a href="mailto:surface-terrain@outlook.fr" className="text-blue-300 underline">
+            <strong>Email :</strong>{' '}
+            <a
+              href="mailto:contact@surface-terrain.fr"
+              className="text-link hover:text-link-hover underline"
+            >
               contact@surface-terrain.fr
             </a>
           </li>
           <li>
-            🐙 <strong>GitHub :</strong>{' '}
+            <strong>GitHub :</strong>{' '}
             <a
               href="https://github.com/LoicGuinais"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-300 underline"
+              className="text-link hover:text-link-hover underline"
             >
               github.com/surface-terrain
             </a>
@@ -56,7 +57,7 @@ export default function Contact() {
         <p className="text-lg font-medium">
           Merci pour votre intérêt pour Surface-Terrain.fr !
         </p>
-      </main>
+      </div>
     </>
   )
 }
