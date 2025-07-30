@@ -5,25 +5,6 @@ import { fetchParcelles } from '../lib/api'
 import dynamic from 'next/dynamic'
 
 export default function Home() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Surface-Terrain.fr",
-    "url": "https://surface-terrain.fr",
-    "description": "Outil en ligne gratuit pour rechercher une parcelle cadastrale par surface et commune, basé sur les données ouvertes du cadastre Etalab.",
-    "applicationCategory": "GeospatialApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "EUR"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Surface-Terrain"
-    }
-  }
-
   const [codePostal, setCodePostal] = useState('')
   const [minSize, setMinSize] = useState('')
   const [maxSize, setMaxSize] = useState('')
@@ -61,9 +42,47 @@ export default function Home() {
           name="description"
           content="Recherchez gratuitement une parcelle cadastrale en France en renseignant sa surface et sa commune. Outil libre et sans inscription, basé sur les données du cadastre Etalab."
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/logo.png" />
+
+        {/* Structured Data: Application */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Surface-Terrain.fr",
+              "url": "https://surface-terrain.fr",
+              "description":
+                "Outil en ligne gratuit pour rechercher une parcelle cadastrale par surface et commune, basé sur les données ouvertes du cadastre Etalab.",
+              "applicationCategory": "GeospatialApplication",
+              "operatingSystem": "All",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "EUR",
+              },
+              "creator": {
+                "@type": "Organization",
+                "name": "Surface-Terrain",
+              },
+            }),
+          }}
+        />
+
+        {/* Structured Data: Organization with logo */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Surface-Terrain",
+              "url": "https://surface-terrain.fr",
+              "logo": "https://surface-terrain.fr/logo.png",
+            }),
+          }}
         />
       </Head>
 
