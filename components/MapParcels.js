@@ -39,14 +39,12 @@ export default function MapParcels({ parcels }) {
     const label = `Section ${props.section} – ${props.numero} (${props.contenance} m²)`
     layer.bindPopup(label, { closeButton: false, offset: [0, -10] })
 
-    // Ensure popup is opened when the layer is ready
-    layer.whenReady(() => {
-      try {
-        layer.openPopup()
-      } catch (e) {
-        console.error('Popup failed to open', e)
-      }
-    })
+    // Safely open the popup right after binding
+    try {
+      layer.openPopup()
+    } catch (e) {
+      console.error('Popup failed to open:', e)
+    }
   }
 
   return (
@@ -71,7 +69,7 @@ export default function MapParcels({ parcels }) {
 
         <RecenterMap parcels={parcels} />
 
-        {/* Parcel polygons with labels */}
+        {/* Parcel polygons with auto-opening popups */}
         {parcels.map((feature, i) => (
           <GeoJSON
             key={`geo-${i}`}
