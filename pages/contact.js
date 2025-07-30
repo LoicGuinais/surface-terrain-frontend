@@ -38,7 +38,7 @@ export default function Contact() {
               href="mailto:contact@surface-terrain.fr"
               className="text-link hover:text-link-hover underline"
             >
-              contact@surface-terrain.fr
+              surface-terrain@outlook.com
             </a>
           </li>
           <li>

@@ -20,7 +20,7 @@ export default function Footer() {
       <p>
         © 2025 Surface Terrain · Contact :{' '}
         <a href="mailto:contact@surface-terrain.fr" className="underline hover:text-brand">
-          contact@surface-terrain.fr
+          surface-terrain@outlook.com
         </a>
       </p>
       <p>
