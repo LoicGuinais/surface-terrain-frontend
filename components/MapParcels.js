@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 // Custom green Leaflet marker
 const greenIcon = new L.Icon({
@@ -32,15 +32,28 @@ function RecenterMap({ parcels }) {
 }
 
 export default function MapParcels({ parcels }) {
+  const franceCenter = [46.603354, 1.888334] // Default center on France
+  const popupLayersRef = useRef([])
+
+  // Clear previous layers when parcels change
+  useEffect(() => {
+    popupLayersRef.current.forEach(layer => {
+      try {
+        layer.openPopup()
+      } catch (e) {
+        console.error('Failed to open popup', e)
+      }
+    })
+  }, [parcels])
+
   const onEachFeature = (feature, layer) => {
     const props = feature.properties
     const label = `Section ${props.section} – ${props.numero} (${props.contenance} m²)`
     layer.bindPopup(label, { closeButton: false, offset: [0, -10] })
-    layer.on('mouseover', () => layer.openPopup())
-    layer.on('mouseout', () => layer.closePopup())
-  }
 
-  const franceCenter = [46.603354, 1.888334] // Default center on France
+    // Store the layer so we can open its popup later
+    popupLayersRef.current.push(layer)
+  }
 
   return (
     <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
