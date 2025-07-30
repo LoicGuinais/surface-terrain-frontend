@@ -32,42 +32,32 @@ function RecenterMap({ parcels }) {
 }
 
 export default function MapParcels({ parcels }) {
-  const franceCenter = [46.603354, 1.888334]
+  const franceCenter = [46.603354, 1.888334] // Default center on France
   const popupLayersRef = useRef([])
 
-  // Open all popups once parcels are rendered
+  // Clear previous layers when parcels change
   useEffect(() => {
-    popupLayersRef.current = []
-
-    if (parcels.length > 0) {
-      const timer = setTimeout(() => {
-        popupLayersRef.current.forEach((layer) => {
-          try {
-            layer.openPopup()
-          } catch (e) {
-            console.error('Error opening popup:', e)
-          }
-        })
-      }, 100) // Wait for Leaflet to finish rendering
-
-      return () => clearTimeout(timer)
-    }
+    popupLayersRef.current.forEach(layer => {
+      try {
+        layer.openPopup()
+      } catch (e) {
+        console.error('Failed to open popup', e)
+      }
+    })
   }, [parcels])
 
   const onEachFeature = (feature, layer) => {
     const props = feature.properties
     const label = `Section ${props.section} – ${props.numero} (${props.contenance} m²)`
-    layer.bindPopup(label, {
-      closeButton: false,
-      offset: [0, -10],
-      autoClose: false,
-      closeOnClick: false,
-    })
+    layer.bindPopup(label, { closeButton: false, offset: [0, -10] })
+
+    // Store the layer so we can open its popup later
     popupLayersRef.current.push(layer)
   }
 
   return (
     <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
+      {/* Optional overlay message */}
       {parcels.length === 0 && (
         <div className="absolute top-4 left-4 z-[1000] bg-white/90 text-black text-sm px-4 py-2 rounded shadow">
           Aucune parcelle à afficher pour l’instant.
@@ -78,7 +68,6 @@ export default function MapParcels({ parcels }) {
         center={franceCenter}
         zoom={6}
         scrollWheelZoom={true}
-        closePopupOnClick={false} // ✅ Allow multiple popups open
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
@@ -88,7 +77,7 @@ export default function MapParcels({ parcels }) {
 
         <RecenterMap parcels={parcels} />
 
-        {/* Parcel polygons */}
+        {/* Parcelle shapes */}
         {parcels.map((feature, i) => (
           <GeoJSON
             key={`geo-${i}`}
