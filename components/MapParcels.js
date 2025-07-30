@@ -35,13 +35,11 @@ export default function MapParcels({ parcels }) {
   const franceCenter = [46.603354, 1.888334]
   const popupLayersRef = useRef([])
 
-  // After parcels are rendered, open all popups
+  // Open all popups once parcels are rendered
   useEffect(() => {
-    // Reset stored layers
     popupLayersRef.current = []
 
     if (parcels.length > 0) {
-      // Wait for Leaflet to finish rendering
       const timer = setTimeout(() => {
         popupLayersRef.current.forEach((layer) => {
           try {
@@ -50,7 +48,7 @@ export default function MapParcels({ parcels }) {
             console.error('Error opening popup:', e)
           }
         })
-      }, 100) // Short delay to wait for mounting
+      }, 100) // Wait for Leaflet to finish rendering
 
       return () => clearTimeout(timer)
     }
@@ -59,8 +57,13 @@ export default function MapParcels({ parcels }) {
   const onEachFeature = (feature, layer) => {
     const props = feature.properties
     const label = `Section ${props.section} – ${props.numero} (${props.contenance} m²)`
-    layer.bindPopup(label, { closeButton: false, offset: [0, -10] })
-    popupLayersRef.current.push(layer) // Store the layer for later popup opening
+    layer.bindPopup(label, {
+      closeButton: false,
+      offset: [0, -10],
+      autoClose: false,
+      closeOnClick: false,
+    })
+    popupLayersRef.current.push(layer)
   }
 
   return (
@@ -75,6 +78,7 @@ export default function MapParcels({ parcels }) {
         center={franceCenter}
         zoom={6}
         scrollWheelZoom={true}
+        closePopupOnClick={false} // ✅ Allow multiple popups open
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
