@@ -56,7 +56,7 @@ export default function MapParcels({ parcels }) {
   }
 
   return (
-    <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
+    <div className="relative z-0 w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
       {/* Optional overlay message */}
       {parcels.length === 0 && (
         <div className="absolute top-4 left-4 z-[1000] bg-white/90 text-black text-sm px-4 py-2 rounded shadow">
