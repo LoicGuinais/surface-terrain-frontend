@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 // Custom green Leaflet marker
 const greenIcon = new L.Icon({
@@ -32,24 +32,39 @@ function RecenterMap({ parcels }) {
 }
 
 export default function MapParcels({ parcels }) {
-  const franceCenter = [46.603354, 1.888334] // Default center on France
+  const franceCenter = [46.603354, 1.888334]
+  const popupLayersRef = useRef([])
+
+  // After parcels are rendered, open all popups
+  useEffect(() => {
+    // Reset stored layers
+    popupLayersRef.current = []
+
+    if (parcels.length > 0) {
+      // Wait for Leaflet to finish rendering
+      const timer = setTimeout(() => {
+        popupLayersRef.current.forEach((layer) => {
+          try {
+            layer.openPopup()
+          } catch (e) {
+            console.error('Error opening popup:', e)
+          }
+        })
+      }, 100) // Short delay to wait for mounting
+
+      return () => clearTimeout(timer)
+    }
+  }, [parcels])
 
   const onEachFeature = (feature, layer) => {
     const props = feature.properties
     const label = `Section ${props.section} – ${props.numero} (${props.contenance} m²)`
     layer.bindPopup(label, { closeButton: false, offset: [0, -10] })
-
-    // Safely open the popup right after binding
-    try {
-      layer.openPopup()
-    } catch (e) {
-      console.error('Popup failed to open:', e)
-    }
+    popupLayersRef.current.push(layer) // Store the layer for later popup opening
   }
 
   return (
     <div className="relative w-full h-[500px] rounded-xl overflow-hidden border border-surface-border">
-      {/* Overlay message when no parcels */}
       {parcels.length === 0 && (
         <div className="absolute top-4 left-4 z-[1000] bg-white/90 text-black text-sm px-4 py-2 rounded shadow">
           Aucune parcelle à afficher pour l’instant.
@@ -69,7 +84,7 @@ export default function MapParcels({ parcels }) {
 
         <RecenterMap parcels={parcels} />
 
-        {/* Parcel polygons with auto-opening popups */}
+        {/* Parcel polygons */}
         {parcels.map((feature, i) => (
           <GeoJSON
             key={`geo-${i}`}
@@ -79,7 +94,7 @@ export default function MapParcels({ parcels }) {
           />
         ))}
 
-        {/* Centroid markers (clickable) */}
+        {/* Centroid markers */}
         {parcels.map((feature, i) => {
           const props = feature.properties
           return (
